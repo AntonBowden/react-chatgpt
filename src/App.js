@@ -1,4 +1,26 @@
 const App = () => {
+  const getMessages = async () => {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        message: "Hey there",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:8000/completions",
+        options
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="app">
       <section className="sidebar">
@@ -17,7 +39,9 @@ const App = () => {
         <div className="bottom-section">
           <div className="input-container">
             <input />
-            <div id="submit">Send</div>
+            <div id="submit" onClick={getMessages}>
+              Send
+            </div>
           </div>
           <p className="info">
             ChatGPT can make mistakes. Consider checking important information.
